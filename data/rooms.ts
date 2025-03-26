@@ -1,0 +1,43 @@
+export const rooms = [
+  {
+    id: 1,
+    name: "AC Room - Boys",
+    description: "Premium air-conditioned rooms with modern amenities.",
+    price: "₹8,500/month",
+    type: "AC",
+    gender: "Boys",
+    available: true,
+    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    id: 2,
+    name: "AC Room - Girls",
+    description: "Spacious AC rooms with comfortable furniture.",
+    price: "₹9000/month",
+    type: "AC",
+    gender: "Girls",
+    available: false,
+    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    id: 3,
+    name: "Non-AC Room - Boys",
+    description: "Affordable non-AC rooms with all basic facilities.",
+    price: "₹7,400/month",
+    type: "Non-AC",
+    gender: "Boys",
+    available: true,
+    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    id: 4,
+    name: "Non-AC Room - Girls",
+    description: "Budget-friendly rooms for girls with essential amenities.",
+    price: "₹8,500/month",
+    type: "Non-AC",
+    gender: "Girls",
+    available: false,
+    image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+  },
+  
+];
