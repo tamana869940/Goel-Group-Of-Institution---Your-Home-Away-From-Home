@@ -41,7 +41,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="relative h-12 w-12 overflow-hidden rounded-md bg-white/10 p-2">
-                <Image src="/logo.jpg" alt="Goel Group Logo" width={48} height={48} className="object-cover" />
+                <Image src="/logo.png" alt="Goel Group Logo" width={48} height={48} className="object-cover" />
               </div>
               <div>
                 <h3 className="font-display text-xl font-bold">Goel Group</h3>
