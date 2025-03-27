@@ -23,6 +23,7 @@ export default function Home() {
                 professionals.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/rooms">
                 <Button
                   size="lg"
                   className="group bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white"
@@ -30,9 +31,13 @@ export default function Home() {
                   Book Your Stay
                   <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
+                </Link>
+
+                <Link href="/contact">
                 <Button variant="outline" size="lg" className="border-blue-700 text-blue-700 hover:bg-blue-50">
                   Take a Tour
                 </Button>
+                </Link>
               </div>
               <div className="flex items-center gap-4 pt-4">
                 <div className="flex -space-x-2">
