@@ -703,15 +703,19 @@ export default function Home() {
               and academic excellence.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <Link href="/rooms">
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white"
               >
                 Book Your Stay Now
               </Button>
+              </Link>
+              <Link href="/contact">
               <Button variant="outline" size="lg" className="border-blue-700 text-blue-700 hover:bg-blue-50">
                 Schedule a Visit
               </Button>
+              </Link>
             </div>
           </div>
         </div>

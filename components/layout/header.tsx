@@ -57,22 +57,23 @@ export default function Header() {
           <Link href="/amenities" className="text-sm font-medium hover:text-orange-600 transition-colors">
             Amenities
           </Link>
-          <Link href="/location" className="text-sm font-medium hover:text-orange-600 transition-colors">
-            Location
-          </Link>
           <Link href="/contact" className="text-sm font-medium hover:text-orange-600 transition-colors">
-            Contact
+          Contact
           </Link>
         </nav>
 
         {/* Buttons */}
         <div className="flex items-center gap-4">
+        <Link href="/login">
           <Button variant="outline" size="sm" className="hidden md:flex border-orange-600 text-orange-600 hover:bg-orange-50">
             Login
           </Button>
+          </Link>
+          <Link href="/rooms">
           <Button size="sm" className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white">
             Book Now
           </Button>
+          </Link>
           <button className="md:hidden" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
               <line x1="4" x2="20" y1="12" y2="12" />
@@ -130,19 +131,20 @@ export default function Header() {
                 <Link href="/amenities" className="text-sm font-medium hover:text-orange-600 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
                   Amenities
                 </Link>
-                <Link href="/location" className="text-sm font-medium hover:text-orange-600 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
-                  Location
-                </Link>
                 <Link href="/contact" className="text-sm font-medium hover:text-orange-600 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
                   Contact
                 </Link>
                 <div className="pt-4">
+                <Link href="/login">
                   <Button variant="outline" size="sm" className="w-full border-orange-600 text-orange-600 hover:bg-orange-50 mb-2">
                     Login
                   </Button>
+                  </Link>
+                  <Link href="/rooms">
                   <Button size="sm" className="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white">
                     Book Now
                   </Button>
+                  </Link>
                 </div>
               </nav>
             </motion.div>
