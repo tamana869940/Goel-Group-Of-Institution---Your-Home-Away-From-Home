@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, User, LogOut, ChevronDown, Sun, Moon } from "lucide-react"
+import { Menu, User, LogOut, ChevronDown } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
@@ -15,17 +15,14 @@ export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
-  const { theme, setTheme } = useTheme()
+  const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  // After mounting, we can safely show the UI that depends on the theme
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Check if user is logged in (mock implementation)
   useEffect(() => {
-    // This would be replaced with actual auth check
     const checkAuth = () => {
       const token = localStorage.getItem("authToken")
       setIsLoggedIn(!!token)
@@ -36,7 +33,6 @@ export default function Header() {
     }
   }, [])
 
-  // Handle scroll effect for header
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -50,7 +46,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Mock logout function
   const handleLogout = () => {
     localStorage.removeItem("authToken")
     setIsLoggedIn(false)
@@ -102,9 +97,9 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-8">
           {[
             { name: "Home", path: "/" },
-            { name: "About", path: "/about" },
-            { name: "Facilities", path: "/facilities" },
-            { name: "Members", path: "/members" },
+            { name: "Room", path: "/rooms" },
+            { name: "Amenities", path: "/amenities" },
+            { name: "Hostel", path: "/hostel" },
             { name: "Contact", path: "/contact" },
           ].map((item) => (
             <Link
@@ -129,20 +124,6 @@ export default function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="h-9 w-9 rounded-full">
-                {theme === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
           {isLoggedIn ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -199,6 +180,12 @@ export default function Header() {
         </div>
 
         <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="md:hidden">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
           <SheetContent side="right">
             <div className="flex items-center gap-2 mb-8 mt-4">
               <div className="relative h-10 w-10 overflow-hidden rounded-md">
@@ -213,7 +200,7 @@ export default function Header() {
               {[
                 { name: "Home", path: "/" },
                 { name: "Room", path: "/rooms" },
-                { name: "Amenities", path: "/Amenities" },
+                { name: "Amenities", path: "/amenities" },
                 { name: "Hostel", path: "/hostel" },
                 { name: "Contact", path: "/contact" },
               ].map((item) => (
@@ -264,14 +251,8 @@ export default function Header() {
                 asChild
                 className="mt-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white"
               >
-                <Link href="/book-room">Book Room</Link>
+                <Link href="/rooms">Book Room</Link>
               </Button>
-              <div className="flex items-center justify-between mt-4">
-                <span className="text-sm">Theme</span>
-                <Button variant="outline" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-                  {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                </Button>
-              </div>
             </nav>
           </SheetContent>
         </Sheet>
@@ -279,4 +260,3 @@ export default function Header() {
     </motion.header>
   )
 }
-
