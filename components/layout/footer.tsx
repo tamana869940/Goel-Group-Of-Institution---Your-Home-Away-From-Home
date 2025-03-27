@@ -1,187 +1,219 @@
 import Link from "next/link"
-import { MapPin, Phone, Mail, Clock } from "lucide-react"
 import Image from "next/image"
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter, Youtube, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
-    <footer className="bg-gradient-to-b from-blue-900 to-blue-950 text-white py-12 md:py-16">
-      <div className="container px-4">
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4 lg:gap-12">
-          <div>
-            <div className="flex items-center gap-2 font-bold text-xl mb-4">
-              <div className="relative h-10 w-10 bg-white rounded-full p-1">
-                <Image
-                  src="/logo.png"
-                  alt="Goel Group Of Institution Logo"
-                  width={40}
-                  height={40}
-                  className="object-contain"
-                />
-              </div>
-              <div>
-                <span className="text-orange-400">Goel</span> <span className="text-white">Group Of Institution</span>
-              </div>
+    <footer className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
+      {/* Newsletter Section */}
+      <div className="border-b border-white/10">
+        <div className="container py-12">
+          <div className="grid gap-8 md:grid-cols-2 items-center">
+            <div>
+              <h3 className="text-2xl font-display font-bold mb-2">Stay Updated</h3>
+              <p className="text-white/80 max-w-md">
+                Subscribe to our newsletter to receive updates about hostel facilities, events, and important
+                announcements.
+              </p>
             </div>
-            <p className="text-blue-200">
-              Providing comfortable and secure accommodation for students and working professionals since 2010.
-            </p>
-            <div className="mt-4 flex space-x-4">
-              <a href="#" className="text-blue-200 hover:text-orange-400" aria-label="Facebook">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5"
-                >
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                </svg>
-              </a>
-              <a href="#" className="text-blue-200 hover:text-orange-400" aria-label="Instagram">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </a>
-              <a href="#" className="text-blue-200 hover:text-orange-400" aria-label="Twitter">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5"
-                >
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-                </svg>
-              </a>
-              <a href="#" className="text-blue-200 hover:text-orange-400" aria-label="LinkedIn">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5"
-                >
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect x="2" y="9" width="4" height="12" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </a>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-full"
+              />
+              <Button className="bg-gradient-to-r from-amber-400 to-amber-600 text-black hover:from-amber-500 hover:to-amber-700 rounded-full">
+                Subscribe
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Main Footer */}
+      <div className="container py-16">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h3 className="font-bold text-lg mb-4 text-orange-400">Quick Links</h3>
-            <ul className="space-y-2">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="relative h-12 w-12 overflow-hidden rounded-md bg-white/10 p-2">
+                <Image src="/logo.jpg" alt="Goel Group Logo" width={48} height={48} className="object-cover" />
+              </div>
+              <div>
+                <h3 className="font-display text-xl font-bold">Goel Group</h3>
+                <p className="text-sm text-white/70">of Institution</p>
+              </div>
+            </div>
+            <p className="text-white/80 mb-6">
+              Providing quality education and comfortable hostel facilities for students since 1995. Our mission is to
+              create a supportive environment for academic excellence.
+            </p>
+            <div className="flex space-x-4">
+              <Link href="#" className="text-white/70 hover:text-white transition-colors">
+                <Facebook className="h-5 w-5" />
+                <span className="sr-only">Facebook</span>
+              </Link>
+              <Link href="#" className="text-white/70 hover:text-white transition-colors">
+                <Twitter className="h-5 w-5" />
+                <span className="sr-only">Twitter</span>
+              </Link>
+              <Link href="#" className="text-white/70 hover:text-white transition-colors">
+                <Instagram className="h-5 w-5" />
+                <span className="sr-only">Instagram</span>
+              </Link>
+              <Link href="#" className="text-white/70 hover:text-white transition-colors">
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </Link>
+              <Link href="#" className="text-white/70 hover:text-white transition-colors">
+                <Youtube className="h-5 w-5" />
+                <span className="sr-only">YouTube</span>
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-6 font-display">Quick Links</h3>
+            <ul className="space-y-4">
               <li>
-                <Link href="/" className="text-blue-200 hover:text-orange-400 transition-colors">
+                <Link href="/" className="text-white/80 hover:text-white transition-colors flex items-center gap-2">
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/rooms" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  Rooms
+                <Link
+                  href="/about"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  About Us
                 </Link>
               </li>
               <li>
-                <Link href="/hostels" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  Hostels
+                <Link
+                  href="/facilities"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  Facilities
                 </Link>
               </li>
               <li>
-                <Link href="/amenities" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  Amenities
+                <Link
+                  href="/members"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  Members
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  Contact
+                <Link
+                  href="/book-room"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  Book Room
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  Contact Us
                 </Link>
               </li>
             </ul>
           </div>
+
           <div>
-            <h3 className="font-bold text-lg mb-4 text-orange-400">Policies</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/terms" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  Terms & Conditions
-                </Link>
+            <h3 className="text-lg font-semibold mb-6 font-display">Hostel Facilities</h3>
+            <ul className="space-y-4">
+              <li className="text-white/80 flex items-center gap-2">
+                <ArrowRight className="h-4 w-4 text-amber-400" />
+                24/7 Security & CCTV
               </li>
-              <li>
-                <Link href="/privacy" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  Privacy Policy
-                </Link>
+              <li className="text-white/80 flex items-center gap-2">
+                <ArrowRight className="h-4 w-4 text-amber-400" />
+                High-Speed Wi-Fi
               </li>
-              <li>
-                <Link href="/refund" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  Refund Policy
-                </Link>
+              <li className="text-white/80 flex items-center gap-2">
+                <ArrowRight className="h-4 w-4 text-amber-400" />
+                Nutritious Mess Facility
               </li>
-              <li>
-                <Link href="/rules" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  Hostel Rules
-                </Link>
+              <li className="text-white/80 flex items-center gap-2">
+                <ArrowRight className="h-4 w-4 text-amber-400" />
+                Laundry Service
               </li>
-              <li>
-                <Link href="/faq" className="text-blue-200 hover:text-orange-400 transition-colors">
-                  FAQ
-                </Link>
+              <li className="text-white/80 flex items-center gap-2">
+                <ArrowRight className="h-4 w-4 text-amber-400" />
+                Common Room & Recreation
+              </li>
+              <li className="text-white/80 flex items-center gap-2">
+                <ArrowRight className="h-4 w-4 text-amber-400" />
+                Study Areas & Library
               </li>
             </ul>
           </div>
+
           <div>
-            <h3 className="font-bold text-lg mb-4 text-orange-400">Contact Info</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-orange-400 shrink-0 mt-0.5" />
-                <span className="text-blue-200">123 University Road, Near College Campus, City - 380015</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-orange-400 shrink-0" />
-                <span className="text-blue-200">+91 98765 43210</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-orange-400 shrink-0" />
-                <span className="text-blue-200">info@goelinstitution.com</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Clock className="h-5 w-5 text-orange-400 shrink-0" />
-                <span className="text-blue-200">Office Hours: 9:00 AM - 6:00 PM</span>
-              </li>
-            </ul>
+            <h3 className="text-lg font-semibold mb-6 font-display">Contact Us</h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 shrink-0 text-amber-400" />
+                <span className="text-white/80">
+                  Goel Group of Institution Campus, Main Road, City, State, PIN - 110001
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="h-5 w-5 shrink-0 text-amber-400" />
+                <span className="text-white/80">+91 1234567890</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="h-5 w-5 shrink-0 text-amber-400" />
+                <span className="text-white/80">info@goelgroup.edu.in</span>
+              </div>
+              <div className="mt-6">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.2536900776364!2d77.20659841508096!3d28.56325198244407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce26f903969d7%3A0x8367180c6de2ecc2!2sAIIMS%20Delhi!5e0!3m2!1sen!2sin!4v1647870173809!5m2!1sen!2sin"
+                  width="100%"
+                  height="150"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="rounded-md"
+                ></iframe>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mt-8 border-t border-blue-800 pt-8 text-center">
-          <p className="text-sm text-blue-300">
-            © {new Date().getFullYear()} Goel Group Of Institution. All rights reserved.
-          </p>
+      </div>
+
+      {/* Copyright */}
+      <div className="border-t border-white/10 py-6">
+        <div className="container">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-white/70">© {currentYear} Goel Group of Institution. All rights reserved.</p>
+            <div className="flex gap-6">
+              <Link href="/privacy-policy" className="text-sm text-white/70 hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms-of-service" className="text-sm text-white/70 hover:text-white transition-colors">
+                Terms of Service
+              </Link>
+              <Link href="/sitemap" className="text-sm text-white/70 hover:text-white transition-colors">
+                Sitemap
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
