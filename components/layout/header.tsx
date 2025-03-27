@@ -90,7 +90,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-3 transition-transform hover:scale-105">
             <div className="relative h-12 w-12 overflow-hidden rounded-md">
-              <Image src="/logo.jpg" alt="Goel Group Logo" width={48} height={48} className="object-cover" />
+              <Image src="/logo.png" alt="Goel Group Logo" width={48} height={48} className="object-cover" />
             </div>
             <div>
               <span className="hidden font-display text-lg font-bold tracking-tight sm:inline-block">Goel Group</span>
