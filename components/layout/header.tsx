@@ -199,12 +199,6 @@ export default function Header() {
         </div>
 
         <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="md:hidden">
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Toggle menu</span>
-            </Button>
-          </SheetTrigger>
           <SheetContent side="right">
             <div className="flex items-center gap-2 mb-8 mt-4">
               <div className="relative h-10 w-10 overflow-hidden rounded-md">
