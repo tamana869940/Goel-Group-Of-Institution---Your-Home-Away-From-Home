@@ -212,9 +212,9 @@ export default function Header() {
             <nav className="flex flex-col gap-4">
               {[
                 { name: "Home", path: "/" },
-                { name: "About", path: "/about" },
-                { name: "Facilities", path: "/facilities" },
-                { name: "Members", path: "/members" },
+                { name: "Room", path: "/rooms" },
+                { name: "Amenities", path: "/Amenities" },
+                { name: "Hostel", path: "/hostel" },
                 { name: "Contact", path: "/contact" },
               ].map((item) => (
                 <Link
