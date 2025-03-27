@@ -1,156 +1,288 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Menu, User, LogOut, ChevronDown, Sun, Moon } from "lucide-react"
+import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { useTheme } from "next-themes"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { motion } from "framer-motion"
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  // Close menu when clicking outside
+  // After mounting, we can safely show the UI that depends on the theme
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (isMenuOpen) {
-        const menu = document.getElementById("mobile-menu")
-        if (menu && !menu.contains(event.target as Node)) {
-          setIsMenuOpen(false)
-        }
+    setMounted(true)
+  }, [])
+
+  // Check if user is logged in (mock implementation)
+  useEffect(() => {
+    // This would be replaced with actual auth check
+    const checkAuth = () => {
+      const token = localStorage.getItem("authToken")
+      setIsLoggedIn(!!token)
+    }
+
+    if (typeof window !== "undefined") {
+      checkAuth()
+    }
+  }, [])
+
+  // Handle scroll effect for header
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [isMenuOpen])
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  // Mock logout function
+  const handleLogout = () => {
+    localStorage.removeItem("authToken")
+    setIsLoggedIn(false)
+  }
+
+  if (!mounted) {
+    return (
+      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md shadow-md">
+        <div className="container flex h-20 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="h-12 w-12 rounded-md bg-gray-200 animate-pulse"></div>
+            <div className="space-y-2">
+              <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-3 w-16 bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-md bg-gray-200 animate-pulse"></div>
+            <div className="h-9 w-20 rounded-md bg-gray-200 animate-pulse"></div>
+            <div className="h-9 w-20 rounded-md bg-gray-200 animate-pulse"></div>
+          </div>
+        </div>
+      </header>
+    )
+  }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-10 w-10">
-            <Image
-              src="/logo.png"
-              alt="Goel Group Of Institution Logo"
-              width={40}
-              height={40}
-              className="object-contain"
-            />
-          </div>
-          <div className="flex flex-col leading-tight font-bold">
-            <span className="text-xl text-orange-600">Goel Group</span>
-            <span className="text-sm text-blue-700">Of Institution</span>
-          </div>
-        </Link>
+    <motion.header
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled ? "bg-background/95 backdrop-blur-md shadow-md" : "bg-transparent"
+      }`}
+    >
+      <div className="container flex h-20 items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-3 transition-transform hover:scale-105">
+            <div className="relative h-12 w-12 overflow-hidden rounded-md">
+              <Image src="/logo.jpg" alt="Goel Group Logo" width={48} height={48} className="object-cover" />
+            </div>
+            <div>
+              <span className="hidden font-display text-lg font-bold tracking-tight sm:inline-block">Goel Group</span>
+              <p className="hidden text-xs text-muted-foreground sm:block">of Institution</p>
+            </div>
+          </Link>
+        </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-6">
-          <Link href="/" className="text-sm font-medium hover:text-orange-600 transition-colors">
-            Home
-          </Link>
-          <Link href="/rooms" className="text-sm font-medium hover:text-orange-600 transition-colors">
-            Rooms
-          </Link>
-          <Link href="/hostels" className="text-sm font-medium hover:text-orange-600 transition-colors">
-            Hostels
-          </Link>
-          <Link href="/amenities" className="text-sm font-medium hover:text-orange-600 transition-colors">
-            Amenities
-          </Link>
-          <Link href="/contact" className="text-sm font-medium hover:text-orange-600 transition-colors">
-          Contact
-          </Link>
+        <nav className="hidden md:flex items-center gap-8">
+          {[
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+            { name: "Facilities", path: "/facilities" },
+            { name: "Members", path: "/members" },
+            { name: "Contact", path: "/contact" },
+          ].map((item) => (
+            <Link
+              key={item.path}
+              href={item.path}
+              className={`relative text-sm font-medium transition-colors hover:text-primary ${
+                pathname === item.path ? "text-primary font-semibold" : "text-muted-foreground"
+              }`}
+            >
+              {item.name}
+              {pathname === item.path && (
+                <motion.span
+                  layoutId="underline"
+                  className="absolute -bottom-1 left-0 h-0.5 w-full bg-primary"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                ></motion.span>
+              )}
+            </Link>
+          ))}
         </nav>
 
-        {/* Buttons */}
-        <div className="flex items-center gap-4">
-        <Link href="/login">
-          <Button variant="outline" size="sm" className="hidden md:flex border-orange-600 text-orange-600 hover:bg-orange-50">
-            Login
-          </Button>
-          </Link>
-          <Link href="/rooms">
-          <Button size="sm" className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white">
-            Book Now
-          </Button>
-          </Link>
-          <button className="md:hidden" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-              <line x1="4" x2="20" y1="12" y2="12" />
-              <line x1="4" x2="20" y1="6" y2="6" />
-              <line x1="4" x2="20" y1="18" y2="18" />
-            </svg>
-          </button>
-        </div>
-      </div>
+        <div className="hidden md:flex items-center gap-3">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon" className="h-9 w-9 rounded-full">
+                {theme === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-      {/* Mobile Menu with animation */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            {/* Background Overlay */}
-            <motion.div
-              className="fixed inset-0 bg-black bg-opacity-50 z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMenuOpen(false)}
-            />
-            
-            {/* Menu Panel */}
-            <motion.div
-              id="mobile-menu"
-              className="fixed right-0 top-0 h-full w-64 bg-white shadow-lg border-l p-4 z-50"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              {/* Close (X) Button */}
-              <button
-                className="absolute top-4 right-4 text-gray-600 hover:text-orange-600"
-                onClick={() => setIsMenuOpen(false)}
+          {isLoggedIn ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-2">
+                  <div className="relative h-8 w-8 overflow-hidden rounded-full">
+                    <Image src="/user-avatar.jpg" alt="User" width={32} height={32} className="object-cover" />
+                  </div>
+                  <span className="text-sm font-medium">My Account</span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem asChild>
+                  <Link href="/profile" className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard" className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    <span>Dashboard</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 text-destructive focus:text-destructive"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button variant="ghost" asChild className="h-9 px-4 rounded-full">
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button
+                asChild
+                className="h-9 px-4 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
+                <Link href="/signup">Sign Up</Link>
+              </Button>
+            </>
+          )}
+          <Button
+            variant="secondary"
+            asChild
+            className="h-9 px-4 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white"
+          >
+            <Link href="/book-room">Book Room</Link>
+          </Button>
+        </div>
 
-              {/* Mobile Navigation Links */}
-              <nav className="flex flex-col space-y-4 mt-8">
-                <Link href="/" className="text-sm font-medium hover:text-orange-600 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
-                  Home
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="md:hidden">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right">
+            <div className="flex items-center gap-2 mb-8 mt-4">
+              <div className="relative h-10 w-10 overflow-hidden rounded-md">
+                <Image src="/logo.jpg" alt="Goel Group Logo" width={40} height={40} className="object-cover" />
+              </div>
+              <div>
+                <span className="font-display text-base font-bold tracking-tight">Goel Group</span>
+                <p className="text-xs text-muted-foreground">of Institution</p>
+              </div>
+            </div>
+            <nav className="flex flex-col gap-4">
+              {[
+                { name: "Home", path: "/" },
+                { name: "About", path: "/about" },
+                { name: "Facilities", path: "/facilities" },
+                { name: "Members", path: "/members" },
+                { name: "Contact", path: "/contact" },
+              ].map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                    pathname === item.path ? "text-primary font-semibold" : "text-muted-foreground"
+                  }`}
+                >
+                  {item.name}
                 </Link>
-                <Link href="/rooms" className="text-sm font-medium hover:text-orange-600 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
-                  Rooms
-                </Link>
-                <Link href="/hostels" className="text-sm font-medium hover:text-orange-600 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
-                  Hostels
-                </Link>
-                <Link href="/amenities" className="text-sm font-medium hover:text-orange-600 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
-                  Amenities
-                </Link>
-                <Link href="/contact" className="text-sm font-medium hover:text-orange-600 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
-                  Contact
-                </Link>
-                <div className="pt-4">
-                <Link href="/login">
-                  <Button variant="outline" size="sm" className="w-full border-orange-600 text-orange-600 hover:bg-orange-50 mb-2">
+              ))}
+              <hr className="my-2" />
+              {isLoggedIn ? (
+                <>
+                  <Link
+                    href="/profile"
+                    className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-2"
+                  >
+                    <User className="h-4 w-4" />
+                    Profile
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-2"
+                  >
+                    <User className="h-4 w-4" />
+                    Dashboard
+                  </Link>
+                  <Button variant="outline" onClick={handleLogout} className="justify-start mt-2 text-destructive">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="text-sm font-medium transition-colors hover:text-primary">
                     Login
-                  </Button>
                   </Link>
-                  <Link href="/rooms">
-                  <Button size="sm" className="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white">
-                    Book Now
-                  </Button>
+                  <Link href="/signup" className="text-sm font-medium transition-colors hover:text-primary">
+                    Sign Up
                   </Link>
-                </div>
-              </nav>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </header>
+                </>
+              )}
+              <Button
+                variant="secondary"
+                asChild
+                className="mt-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white"
+              >
+                <Link href="/book-room">Book Room</Link>
+              </Button>
+              <div className="flex items-center justify-between mt-4">
+                <span className="text-sm">Theme</span>
+                <Button variant="outline" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+                  {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                </Button>
+              </div>
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </div>
+    </motion.header>
   )
 }
+

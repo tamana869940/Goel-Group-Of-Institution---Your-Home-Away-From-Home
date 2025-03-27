@@ -87,47 +87,47 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/about"
-                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <ArrowRight className="h-4 w-4 text-amber-400" />
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/facilities"
-                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <ArrowRight className="h-4 w-4 text-amber-400" />
-                  Facilities
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/members"
-                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <ArrowRight className="h-4 w-4 text-amber-400" />
-                  Members
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/book-room"
-                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <ArrowRight className="h-4 w-4 text-amber-400" />
-                  Book Room
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/contact"
                   className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
                 >
                   <ArrowRight className="h-4 w-4 text-amber-400" />
                   Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/amenities"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  Amenities
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  Terms And Conditions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/rooms"
+                  className="text-white/80 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <ArrowRight className="h-4 w-4 text-amber-400" />
+                  Rooms
                 </Link>
               </li>
             </ul>
