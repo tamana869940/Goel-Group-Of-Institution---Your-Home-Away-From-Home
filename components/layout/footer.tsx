@@ -43,7 +43,7 @@ export default function Footer() {
               <div className="relative h-12 w-12 overflow-hidden rounded-md bg-white/10 p-2">
                 <Image src="/logo.png" alt="Goel Group Logo" width={48} height={48} className="object-cover" />
               </div>
-              <div>
+              <div> 
                 <h3 className="font-display text-xl font-bold">Goel Group</h3>
                 <p className="text-sm text-white/70">of Institution</p>
               </div>
