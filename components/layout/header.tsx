@@ -175,7 +175,7 @@ export default function Header() {
             asChild
             className="h-9 px-4 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white"
           >
-            <Link href="/book-room">Book Room</Link>
+            <Link href="/rooms">Book Room</Link>
           </Button>
         </div>
 
