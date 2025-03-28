@@ -3,13 +3,14 @@
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Menu, User, LogOut, ChevronDown } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { motion } from "framer-motion"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -17,6 +18,7 @@ export default function Header() {
   const pathname = usePathname()
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -99,7 +101,7 @@ export default function Header() {
             { name: "Home", path: "/" },
             { name: "Room", path: "/rooms" },
             { name: "Amenities", path: "/amenities" },
-            { name: "Hostel", path: "/hostel" },
+            { name: "Hostel", path: "/hostels" },
             { name: "Contact", path: "/contact" },
           ].map((item) => (
             <Link
@@ -179,83 +181,109 @@ export default function Header() {
           </Button>
         </div>
 
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="md:hidden">
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Toggle menu</span>
+        {/* Mobile Navigation with SheetTitle for accessibility */}
+        <div className="flex md:hidden items-center gap-2">
+          {!isLoggedIn && (
+            <Button 
+              asChild 
+              size="sm" 
+              className="px-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+            >
+              <Link href="/login">Login</Link>
             </Button>
-          </SheetTrigger>
-          <SheetContent side="right">
-            <div className="flex items-center gap-2 mb-8 mt-4">
-              <div className="relative h-10 w-10 overflow-hidden rounded-md">
-                <Image src="/logo.jpg" alt="Goel Group Logo" width={40} height={40} className="object-cover" />
-              </div>
-              <div>
-                <span className="font-display text-base font-bold tracking-tight">Goel Group</span>
-                <p className="text-xs text-muted-foreground">of Institution</p>
-              </div>
-            </div>
-            <nav className="flex flex-col gap-4">
-              {[
-                { name: "Home", path: "/" },
-                { name: "Room", path: "/rooms" },
-                { name: "Amenities", path: "/amenities" },
-                { name: "Hostel", path: "/hostel" },
-                { name: "Contact", path: "/contact" },
-              ].map((item) => (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    pathname === item.path ? "text-primary font-semibold" : "text-muted-foreground"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <hr className="my-2" />
-              {isLoggedIn ? (
-                <>
-                  <Link
-                    href="/profile"
-                    className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-2"
-                  >
-                    <User className="h-4 w-4" />
-                    Profile
-                  </Link>
-                  <Link
-                    href="/dashboard"
-                    className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-2"
-                  >
-                    <User className="h-4 w-4" />
-                    Dashboard
-                  </Link>
-                  <Button variant="outline" onClick={handleLogout} className="justify-start mt-2 text-destructive">
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Logout
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Link href="/login" className="text-sm font-medium transition-colors hover:text-primary">
-                    Login
-                  </Link>
-                  <Link href="/signup" className="text-sm font-medium transition-colors hover:text-primary">
-                    Sign Up
-                  </Link>
-                </>
-              )}
-              <Button
-                variant="secondary"
-                asChild
-                className="mt-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white"
-              >
-                <Link href="/rooms">Book Room</Link>
+          )}
+          
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="h-9 w-9">
+                <Menu className="h-4 w-4" />
+                <span className="sr-only">Toggle menu</span>
               </Button>
-            </nav>
-          </SheetContent>
-        </Sheet>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <VisuallyHidden asChild>
+                <SheetTitle>Mobile Navigation Menu</SheetTitle>
+              </VisuallyHidden>
+              
+              <div className="flex flex-col h-full">
+                <div className="flex items-center gap-3 mb-8 mt-4">
+                  <div className="relative h-10 w-10 overflow-hidden rounded-md">
+                    <Image src="/logo.png" alt="Goel Group Logo" width={40} height={40} className="object-cover" />
+                  </div>
+                  <div>
+                    <span className="font-display text-base font-bold tracking-tight">Goel Group</span>
+                    <p className="text-xs text-muted-foreground">of Institution</p>
+                  </div>
+                </div>
+
+                <nav className="flex-1 flex flex-col gap-4">
+                  {[
+                    { name: "Home", path: "/" },
+                    { name: "Room", path: "/rooms" },
+                    { name: "Amenities", path: "/amenities" },
+                    { name: "Hostel", path: "/hostels" },
+                    { name: "Contact", path: "/contact" },
+                  ].map((item) => (
+                    <Link
+                      key={item.path}
+                      href={item.path}
+                      onClick={() => setOpen(false)}
+                      className={`text-sm font-medium transition-colors hover:text-primary ${
+                        pathname === item.path ? "text-primary font-semibold" : "text-muted-foreground"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </nav>
+
+                <div className="mt-auto pt-4 border-t">
+                  {isLoggedIn ? (
+                    <>
+                      <Link
+                        href="/profile"
+                        onClick={() => setOpen(false)}
+                        className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-2 mb-2"
+                      >
+                        <User className="h-4 w-4" />
+                        Profile
+                      </Link>
+                      <Link
+                        href="/dashboard"
+                        onClick={() => setOpen(false)}
+                        className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-2 mb-4"
+                      >
+                        <User className="h-4 w-4" />
+                        Dashboard
+                      </Link>
+                      <Button
+                        variant="outline"
+                        onClick={handleLogout}
+                        className="w-full text-destructive"
+                      >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Logout
+                      </Button>
+                    </>
+                  ) : (
+                    <Button
+                      asChild
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+                    >
+                      <Link href="/signup" onClick={() => setOpen(false)}>Sign Up</Link>
+                    </Button>
+                  )}
+                  <Button
+                    asChild
+                    className="w-full mt-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white"
+                  >
+                    <Link href="/rooms" onClick={() => setOpen(false)}>Book Room</Link>
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </motion.header>
   )
